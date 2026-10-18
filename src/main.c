@@ -347,6 +347,26 @@ static const char *current_filter_text(void) {
   return gtk_editable_get_text(GTK_EDITABLE(search_entry));
 }
 
+static const char *icon_suffixes[] = {"-git", "-bin", "-nightly", "-beta",
+                                      "-appimage", "-stable", NULL};
+
+static const char *find_icon_name(const char *pkg, char *buf, size_t n) {
+  GtkIconTheme *theme = gtk_icon_theme_get_for_display(gdk_display_get_default());
+  snprintf(buf, n, "%s", pkg);
+  if (gtk_icon_theme_has_icon(theme, buf)) return buf;
+
+  size_t len = strlen(buf);
+  for (int i = 0; icon_suffixes[i]; i++) {
+    size_t sl = strlen(icon_suffixes[i]);
+    if (len > sl && strcmp(buf + len - sl, icon_suffixes[i]) == 0) {
+      buf[len - sl] = '\0';
+      if (gtk_icon_theme_has_icon(theme, buf)) return buf;
+      break;
+    }
+  }
+  return "package-x-generic";
+}
+
 static void refresh_list_view(const char *filter_text) {
   GtkWidget *child = gtk_widget_get_first_child(GTK_WIDGET(package_list));
   while (child) {
