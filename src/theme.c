@@ -48,8 +48,8 @@ void apply_dynamic_theme(GtkWidget *window) {
   Color accent_c = soften(colors[3], 0.15);
 
   char bg[32], bg_list[32], fg[8], accent[8];
-  color_to_rgba(bg_c, 0.85, bg, sizeof(bg));
-  color_to_rgba(bg_c, 0.90, bg_list, sizeof(bg_list));
+  color_to_rgba(bg_c, 0.55, bg, sizeof(bg));
+  color_to_rgba(bg_c, 0.35, bg_list, sizeof(bg_list));
   palette_color_to_hex(fg_c, fg);
   palette_color_to_hex(accent_c, accent);
 

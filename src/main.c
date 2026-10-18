@@ -401,7 +401,9 @@ static void refresh_list_view(const char *filter_text) {
     gtk_widget_add_css_class(row_box, "package-row");
 
     /* --- icon --- */
-    GtkWidget *icon = gtk_image_new_from_icon_name("package-x-generic");
+    char icon_buf[NAME_MAX_LEN];
+    GtkWidget *icon = gtk_image_new_from_icon_name(
+        find_icon_name(pkg->name, icon_buf, sizeof(icon_buf)));
     gtk_image_set_pixel_size(GTK_IMAGE(icon), 32);
     gtk_box_append(GTK_BOX(row_box), icon);
 
