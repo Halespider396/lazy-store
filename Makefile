@@ -9,3 +9,6 @@ lazy-store: $(SRC)
 
 clean:
 	rm -f lazy-store
+
+install: lazy-store
+	install -Dm755 lazy-store $(DESTDIR)/usr/bin/lazy-store
